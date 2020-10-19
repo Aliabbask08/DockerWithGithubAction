@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 jobs:
    run_push_request:
-       runs-on: self-hosted 
+       runs-on: 
        steps:
          - uses: actions/checkout@v2
          - run: |
