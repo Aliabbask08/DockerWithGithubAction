@@ -18,7 +18,7 @@ jobs:
            run: |
                scp -r init.sh -i ${{ secrets.PASSWORD }} ubuntu@3.84.222.34:/opt
          - name: ssh to deployment machine
-           uses:
+           uses: appleboy/ssh-action@master
            with:
               host: ${{ secrets.HOST }}
               username: ${{ secrets.USERNAME }}
