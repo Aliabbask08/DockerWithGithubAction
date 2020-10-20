@@ -13,6 +13,6 @@ jobs:
                bash init.sh
                docker build -t myfirstimage:v1 .
                echo "Check docker images"
-               docker images -a |grep myfirstimage:v1
+               docker images -a 
 
 
