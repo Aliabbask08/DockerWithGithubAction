@@ -14,5 +14,16 @@ jobs:
                docker build -t myfirstimage:v1 .
                echo "Check docker images"
                docker images -a 
-
-
+         - name: scp init to opt
+           run: |
+               scp -r init.sh -i ${{ secrets.PASSWORD }} ubuntu@3.84.222.34:/opt
+         - name: ssh to deployment machine
+           uses:
+           with:
+              host: ${{ secrets.HOST }}
+              username: ${{ secrets.USERNAME }}
+              password: ${{ secrets.PASSWORD }}
+              port: ${{ secrets.PORT }}
+              script: |
+                     cat /etc/issue.net
+                     ls -lh /opt 
