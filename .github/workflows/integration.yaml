@@ -25,12 +25,4 @@ jobs:
                   docker login --username ${{ secrets.REGISTRY_NAME }} --password ${{ secrets.PASSWORD }} 
                   docker tag myfirstimage:v1 alwaysavail/grunt
                   docker push alwaysavail/grunt
-         #- name: ssh to deployment machine
-          #uses: appleboy/scp-action@master 
-           #with:
-              #host: ${{ secrets.HOST }}
-              #username: ${{ secrets.USERNAME }}
-              #key: ${{ secrets.PASSWORD }}
-              #port: ${{ secrets.PORT }}
-              #source: "build"
-              #target: "/opt"
+        
