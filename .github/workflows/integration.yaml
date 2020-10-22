@@ -2,9 +2,10 @@ name: Docker image builder
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+         - '*'
 jobs:
-   run_push_request:
+   build:
        runs-on: self-hosted 
        steps:
          - uses: actions/checkout@v2
@@ -14,12 +15,22 @@ jobs:
                docker build -t myfirstimage:v1 .
                echo "Check docker images"
                docker images -a 
-         - name: ssh to deployment machine
-           uses: appleboy/scp-action@master 
-           with:
-              host: ${{ secrets.HOST }}
-              username: ${{ secrets.USERNAME }}
-              key: ${{ secrets.PASSWORD }}
-              port: ${{ secrets.PORT }}
-              source: "build"
-              target: "/opt"
+   deploy:
+       runs-on: self-hosted
+       needs: build
+       if: github.ref == 'refs/heads/master'
+       steps:
+          - name: Push docker image to registry
+          - run: |
+                  docker login --username ${{ secrets.REGISTRY_NAME }} --password ${{ secrets.PASSWORD }} 
+                  docker tag myfirstimage:v1 alwaysavail/grunt
+                  docker push alwaysavail/grunt
+         #- name: ssh to deployment machine
+          #uses: appleboy/scp-action@master 
+           #with:
+              #host: ${{ secrets.HOST }}
+              #username: ${{ secrets.USERNAME }}
+              #key: ${{ secrets.PASSWORD }}
+              #port: ${{ secrets.PORT }}
+              #source: "build"
+              #target: "/opt"
