@@ -21,7 +21,7 @@ jobs:
        if: github.ref == 'refs/heads/master'
        steps:
           - name: Push docker image to registry
-          - run: |
+            run: |
                   docker login --username ${{ secrets.REGISTRY_NAME }} --password ${{ secrets.PASSWORD }} 
                   docker tag myfirstimage:v1 alwaysavail/grunt
                   docker push alwaysavail/grunt
